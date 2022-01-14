@@ -32,10 +32,26 @@ source .env
 
 ## Create lab from topology
 
+Create the lab
+
 ```
 eve-ng lab create-from-topology -t topology.base.yml
 ```
 
+Verify that lab is showing in list
+
 ```sh
 eve-ng lab list
+```
+
+View the nodes in your lab
+
+```
+eve-ng node list --path /arista-level3-lab.unl
+```
+
+Start your lab
+
+```sh
+eve-ng lab start --path /arista-level3-lab.unl
 ```
