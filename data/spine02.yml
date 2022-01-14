@@ -1,0 +1,3 @@
+---
+hostname: spine02
+management_address: 172.16.0.2

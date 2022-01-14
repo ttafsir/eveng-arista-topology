@@ -1,0 +1,3 @@
+---
+hostname: leaf04
+management_address: 172.16.0.23

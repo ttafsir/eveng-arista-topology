@@ -1,0 +1,3 @@
+---
+hostname: leaf01
+management_address: 172.16.0.21

@@ -1,0 +1,3 @@
+---
+hostname: border02
+management_address: 172.16.0.12
