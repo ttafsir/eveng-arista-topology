@@ -55,3 +55,5 @@ Start your lab
 ```sh
 eve-ng lab start --path /arista-level3-lab.unl
 ```
+
+> Note: If you DON'T want to keep typing the lab path, you can export `EVE_NG_LAB_PATH=/arista-level3-lab.unl` or add it to your `.env` file and source it.
