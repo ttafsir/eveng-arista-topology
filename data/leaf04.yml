@@ -1,3 +1,31 @@
 ---
 hostname: leaf04
 management_address: 172.16.0.23
+management_gateway: 172.16.0.254
+
+loopback0_address: 1.1.1.104
+loopback1_address: 2.2.2.3
+
+l3_interfaces:
+  - description: A-SPINE1
+    name: Eth3
+    ipv4_address: 10.104.201.104/24
+  - description: A-SPINE2
+    name: Eth4
+    ipv4_address: 10.104.202.104/24
+
+mlag:
+  local_interface: Vlan4094
+  local_ipv4: 10.0.0.2/30
+  remote_interface: Vlan4094
+  remote_ipv4: 10.0.0.1/30
+  members:
+    - Eth1
+    - Eth2
+
+bgp_asn: 65103
+ibgp_neighbors:
+  local_interface: Vlan4094
+  local_ipv4: 192.0.0.2/24
+  remote_interface: Vlan4094
+  remote_ipv4: 192.0.0.1/24

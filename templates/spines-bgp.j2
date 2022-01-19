@@ -1,0 +1,17 @@
+
+peer-filter LEAF-AS-RANGE
+    10 match as-range 65001-65199 result accept
+
+router bgp {{ bgp_asn }}
+    router-id {{ loopback0_address }}
+    update wait-install
+    no bgp default ipv4-unicast
+    bgp listen range 10.0.0.0/8 peer-group IPv4-UNDERLAY-PEERS peer-filter LEAF-AS-RANGE
+    neighbor IPv4-UNDERLAY-PEERS peer-group
+    neighbor IPv4-UNDERLAY-PEERS password @rista123
+    neighbor IPv4-UNDERLAY-PEERS send-community
+    neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
+    redistribute connected route-map RM-CONN-2-BGP
+    !
+    address-family ipv4
+    neighbor IPv4-UNDERLAY-PEERS activate

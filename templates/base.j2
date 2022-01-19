@@ -1,4 +1,3 @@
-alias rztp bash echo 'DISABLE=False' > /mnt/flash/zerotouch-config
 {% if hostname is defined and hostname %}
 hostname {{ hostname }}
 {% else %}
@@ -10,9 +9,27 @@ no aaa root
 username admin privilege 15 secret Arista123!
 username cvpadmin privilege 15 secret Arista123!
 !
-vrf definition management
+service routing protocols model multi-agent
+!
+vrf instance management
    description management vrf
 !
+!
+ip routing
+no ip routing vrf management
+!
+{% if loopback0_address is defined  %}
+interface Loopback0
+   description EVPN Peering
+   ip address {{ loopback0_address }}/32
+!
+{% endif %}
+{% if loopback1_address is defined  %}
+interface Loopback1
+   description VXLAN Tunnel Source
+   ip address {{ loopback1_address }}/32
+!
+{% endif %}
 {% if management_address is defined and management_address %}
 interface Management1
    description MANAGEMENT
@@ -20,10 +37,37 @@ interface Management1
    ip address {{ management_address }}/24
 !
 {% endif %}
-ip route vrf management 0.0.0.0/0 {{ gateway }}
+{% for interface in l3_interfaces %}
+interface {{ interface.name }}
+   description {{ interface.description }}
+   no switchport
+   mtu 9214
+   ip address {{ interface.ipv4_address }}
+   no shutdown
 !
-no ip routing
-no ip routing vrf management
+{% endfor %}
+!
+{% if mlag is defined %}
+{%     include 'mlag.j2' %}
+{% endif %}
+!
+ip prefix-list PL-LOOPBACKS seq 10 permit 1.1.1.0/24 eq 32
+ip prefix-list PL-LOOPBACKS seq 20 permit 2.2.2.0/24 eq 32
+ip prefix-list PL-P2P-UNDERLAY seq 10 permit 10.0.0.0/8 le 31
+
+route-map RM-CONN-2-BGP permit 10
+   match ip address prefix-list PL-LOOPBACKS
+!
+route-map RM-CONN-2-BGP permit 20
+   match ip address prefix-list PL-P2P-UNDERLAY
+!
+{% if 'spine' in hostname %}
+{%     include 'spines-bgp.j2' %}
+{% else %}
+{%     include 'leafs-bgp.j2' %}
+{% endif %}
+!
+ip route vrf management 0.0.0.0/0 {{ management_gateway }}
 !
 management api http-commands
    no shutdown

@@ -1,0 +1,31 @@
+Vlan 4094
+   name MLAG-iBGP-Peering
+   trunk group MLAG_TRUNK_GROUP
+!
+interface Vlan4094
+   description MLAG iBGP Peering
+   ip address {{ mlag.local_ipv4 }}
+!
+interface Port-Channel4094
+   description *** PCUPLINK CHANNEL: MLAG_PEER_LINK ***
+   switchport mode trunk
+   switchport trunk group MLAG_TRUNK_GROUP
+!
+{% for intf in mlag.members %}
+interface {{ intf }}
+   description *** PCUPLINK MEMBER: MLAG_PEER_LINK ***
+   switchport mode trunk
+   channel-group 4094 mode active
+!
+{% endfor %}
+!
+mlag configuration
+   domain-id MLAG_DOMAIN
+   local-interface {{ mlag.local_interface }}
+   peer-address {{ mlag.remote_ipv4.split('/')[0] }}
+   peer-link Port-Channel4094
+{% if mlag.dual_detection_enable is defined %}
+   peer-address heartbeat {{ mlag.dual_peer_address_heartbeat }} vrf management
+   heartbeat-interval {{ mlag.dual_heartbeat_interval_ms }}
+   dual-primary detection delay {{ mlag.dual_detection_delay }} action errdisable all-interfaces
+{% endif %}

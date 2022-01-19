@@ -1,3 +1,28 @@
 ---
 hostname: spine02
 management_address: 172.16.0.2
+management_gateway: 172.16.0.254
+
+loopback0_address: 1.1.1.202
+
+l3_interfaces:
+  - description: leaf01
+    name: Eth1
+    ipv4_address: 10.101.202.202/24
+  - description: leaf02
+    name: Eth2
+    ipv4_address: 10.102.202.202/24
+  - description: leaf03
+    name: Eth3
+    ipv4_address: 10.103.202.202/24
+  - description: leaf04
+    name: Eth4
+    ipv4_address: 10.104.202.202/24
+  - description: border01
+    name: Eth5
+    ipv4_address: 10.106.202.202/24
+  - description: border02
+    name: Eth6
+    ipv4_address: 10.107.202.202/24
+
+bgp_asn: 65001

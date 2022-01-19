@@ -84,11 +84,6 @@
         template: base.j2
         vars: data/spine02.yml
   networks:
-    - name: external-vcloud
-      network_type: pnet0
-      visibility: 1
-      top: 300
-      left: 475
     - name: eve-mgmt
       network_type: pnet1
       visibility: 1

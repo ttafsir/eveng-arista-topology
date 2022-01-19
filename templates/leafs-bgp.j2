@@ -1,0 +1,29 @@
+{% set spine1_intf = (l3_interfaces | selectattr('description', 'eq', 'A-SPINE1') | list)[0].ipv4_address %}
+{% set spine2_intf = (l3_interfaces | selectattr('description', 'eq', 'A-SPINE2') | list)[0].ipv4_address %}
+
+router bgp 65102
+    router-id {{ loopback0_address }}
+    update wait-install
+    no bgp default ipv4-unicast
+    maximum-paths 2
+    neighbor IPv4-UNDERLAY-PEERS peer group
+    neighbor IPv4-UNDERLAY-PEERS remote-as 65001
+    neighbor IPv4-UNDERLAY-PEERS password @rista123
+    neighbor IPv4-UNDERLAY-PEERS send-community
+    neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
+    neighbor MLAG-IPv4-UNDERLAY-PEER peer group
+    neighbor MLAG-IPv4-UNDERLAY-PEER remote-as {{ bgp_asn }}
+    neighbor MLAG-IPv4-UNDERLAY-PEER next-hop-self
+    neighbor MLAG-IPv4-UNDERLAY-PEER password @rista123
+    neighbor MLAG-IPv4-UNDERLAY-PEER send-community
+    neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000
+    neighbor {{ mlag.remote_ipv4.split('/')[0] }} peer group MLAG-IPv4-UNDERLAY-PEER
+{%    set spine1_ip_parts = spine1_intf.split('.') %}
+    neighbor {{ spine1_ip_parts[:3] | join('.') ~ '.201' }} peer group IPv4-UNDERLAY-PEERS
+{%    set spine2_ip_parts = spine2_intf.split('.') %}
+    neighbor {{ spine2_ip_parts[:3] | join('.') ~ '.202' }} peer group IPv4-UNDERLAY-PEERS
+    redistribute connected route-map RM-CONN-2-BGP
+    !
+    address-family ipv4
+    neighbor IPv4-UNDERLAY-PEERS activate
+    neighbor MLAG-IPv4-UNDERLAY-PEER activate
