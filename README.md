@@ -1,5 +1,5 @@
 # eveng-arista-topology
-This repository provides a topology file for EVE-NG that be used and modified to quickly provision an Arista L3LS+EVPN topology for practice/testing. The instructions below demonstrate how to use the [evensdk](https://github.com/ttafsir/evengsdk) library and CLI to deploy this lab in your existing EVE-NG deployment.
+This repository provides a topology file for EVE-NG to be used and modified to quickly provision an Arista L3LS+EVPN topology for practice/testing. The instructions below demonstrate how to use the [evensdk](https://github.com/ttafsir/evengsdk) library and CLI to quickly deploy this lab in your existing EVE-NG deployment.
 
 ![image-20220114164837189](./topology-base.png)
 
