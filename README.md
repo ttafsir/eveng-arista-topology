@@ -1,10 +1,22 @@
 # eveng-arista-topology
-This repository provides a topology file for EVE-NG to be used and modified to quickly provision an Arista L3LS+EVPN topology for practice/testing. The instructions below demonstrate how to use the [evensdk](https://github.com/ttafsir/evengsdk) library and CLI to quickly deploy this lab in your existing EVE-NG deployment.
+
+This repository provides a topology file to build an Arista L3LS+EVPN fabric in [EVE-NG](https://www.eve-ng.net/). The fabric topology is meant to help with exploring and practicing concepts in Arista's [EVPN Deployment Guide](https://www.arista.com/custom_data/downloads/?f=/support/download/DesignGuides/EVPN_Deployment_Guide.pdf).
+
 
 ![image-20220114164837189](./topology-base.png)
 
+## Requirements
+
+To deploy the topology, you will need to have the following:
+
+* a running instance of EVE-NG
+* The [evensdk](https://github.com/ttafsir/evengsdk) library and CLI tool.
+
+> **Note:** The topology uses `veos-4.27.0F` for the node image. Make sure that you either have the image available by downloading from the Arista portal, or replace it with a veos image that you already have in EVE-NG.
 
 ## Install Requirements
+
+To install the `evengsdk` library and CLI tool, run the following command:
 
 ```sh
 pip install eve-ng
