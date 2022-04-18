@@ -85,7 +85,7 @@
         vars: data/spine02.yml
   networks:
     - name: eve-mgmt
-      network_type: pnet1
+      network_type: nat0
       visibility: 1
       top: 500
       left: 475
@@ -106,10 +106,7 @@
       # leaf01 to spines
       - {"src": "leaf01", "src_label": "Eth3", "dst": "spine01", "dst_label": "Eth1"}
       - {"src": "leaf01", "src_label": "Eth4", "dst": "spine02", "dst_label": "Eth1"}
-      # leaf02 to leaf01
-      - {"src": "leaf02", "src_label": "Eth1", "dst": "leaf01", "dst_label": "Eth1"}
-      - {"src": "leaf02", "src_label": "Eth2", "dst": "leaf01", "dst_label": "Eth2"}
-      # leaf02 to spines
+      # # leaf02 to spines
       - {"src": "leaf02", "src_label": "Eth3", "dst": "spine01", "dst_label": "Eth2"}
       - {"src": "leaf02", "src_label": "Eth4", "dst": "spine02", "dst_label": "Eth2"}
       # leaf03 to leaf04
@@ -118,9 +115,6 @@
       # leaf03 to spines
       - {"src": "leaf03", "src_label": "Eth3", "dst": "spine01", "dst_label": "Eth3"}
       - {"src": "leaf03", "src_label": "Eth4", "dst": "spine02", "dst_label": "Eth3"}
-      # leaf04 to leaf03
-      - {"src": "leaf04", "src_label": "Eth1", "dst": "leaf03", "dst_label": "Eth1"}
-      - {"src": "leaf04", "src_label": "Eth2", "dst": "leaf03", "dst_label": "Eth2"}
       # leaf04 to spines
       - {"src": "leaf04", "src_label": "Eth3", "dst": "spine01", "dst_label": "Eth4"}
       - {"src": "leaf04", "src_label": "Eth4", "dst": "spine02", "dst_label": "Eth4"}
@@ -130,9 +124,6 @@
       # border01 to spines
       - {"src": "border01", "src_label": "Eth3", "dst": "spine01", "dst_label": "Eth5"}
       - {"src": "border01", "src_label": "Eth4", "dst": "spine02", "dst_label": "Eth5"}
-      # border02 to border01
-      - {"src": "border02", "src_label": "Eth1", "dst": "border01", "dst_label": "Eth1"}
-      - {"src": "border02", "src_label": "Eth2", "dst": "border01", "dst_label": "Eth2"}
       # border02 to spines
       - {"src": "border02", "src_label": "Eth3", "dst": "spine01", "dst_label": "Eth6"}
       - {"src": "border02", "src_label": "Eth4", "dst": "spine02", "dst_label": "Eth6"}
