@@ -1,4 +1,4 @@
-# eveng-ios-topology
+# eveng-arista-topology
 
 Simple Network Topology with IOS and NXOS.
 
@@ -12,8 +12,7 @@ To deploy the topology, you will need to have the following:
 
 Images:
 
-* `vios-adventerprisek9-m.vmdk.SPA.156-2.T`
-* `nxosv9k-9.3.5`
+* `veos-4.27.0F`
 
 ## Install Requirements
 
@@ -25,7 +24,7 @@ pip install eve-ng
 
 ## Configure Your Environment
 
-You can define your environment variables in a `.env` so that you can easily export environemnt variables to configure the EVE-NG CLI tool. **This will prevent you from getting prompted for credentials**.
+You can define your environment variables in a `.env` so that you can easily export environment variables to configure the EVE-NG CLI tool. **This will prevent you from getting prompted for credentials**.
 
 STEP 1. Create your `.env` file
 
@@ -33,7 +32,7 @@ STEP 1. Create your `.env` file
 export EVE_NG_HOST=10.246.33.49
 export EVE_NG_USERNAME=admin
 export EVE_NG_PASSWORD=eve
-export EVE_NG_LAB_PATH='/cisco-ansible-lab.unl'
+export EVE_NG_LAB_PATH='/arista-level3-lab.unl'
 ```
 
 :warning: The `.env` file is ignored from version control so that you do not accidentally
@@ -48,7 +47,7 @@ source .env
 
 Create the lab
 
-```
+```sh
 eve-ng lab create-from-topology -t topology.base.yml
 ```
 
@@ -61,13 +60,13 @@ eve-ng lab list
 View the nodes in your lab
 
 ```
-eve-ng node list --path /cisco-ansible-lab.unl
+eve-ng node list --path /arista-level3-lab.unl
 ```
 
-> Note: To avoid repeatedly having to provide the lab path, you can export `EVE_NG_LAB_PATH=/cisco-ansible-lab.unl` or add it to your `.env` file and source it.
+> Note: To avoid repeatedly having to provide the lab path, you can export `EVE_NG_LAB_PATH=/arista-level3-lab.unl` or add it to your `.env` file and source it.
 
 Start your lab
 
 ```sh
-eve-ng lab start --path /cisco-ansible-lab.unl
+eve-ng lab start --path /arista-level3-lab.unl
 ```
